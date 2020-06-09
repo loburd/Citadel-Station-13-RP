@@ -870,6 +870,9 @@
 	var/mob/living/target = C.pulling || GRAB_NECK
 	to_chat(C, "<span class='notice'>You begin linking [target]'s mind to yours...</span>")
 	to_chat(target, "<span class='warning'>You feel a foreign presence within your mind...</span>")
+
+	//problem starts here
+
 	if(do_after(C, 5, target = target))
 		if(C.pulling != target || G.state == GRAB_NECK)
 			return
@@ -898,7 +901,5 @@
 
 	if(target.stat == DEAD)
 		to_chat(C, "You feel a sense of dread fill you.")
-
-
 		///HEAD PAIN. MAJOR
 		return
