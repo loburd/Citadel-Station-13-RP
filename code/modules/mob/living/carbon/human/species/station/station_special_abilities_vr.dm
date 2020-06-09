@@ -866,12 +866,13 @@
 		to_chat(C, "<span class='warning'>You must have a tighter grip to link to this creature.</span>")
 		return
 
-	var/mob/living/target = C.pulling
+	var/mob/living/target = C.pulling || GRAB_NECK
 	to_chat(C, "<span class='notice'>You begin linking [target]'s mind to yours...</span>")
 	to_chat(target, "<span class='warning'>You feel a foreign presence within your mind...</span>")
 	if(do_after(C, 60, target = target))
 		if(C.pulling != target || G.state == GRAB_NECK)
 			return
+    var/mob/living/carbon/human/C = var/mob/living/soul_owner
 		to_chat(C, "<span class='warning'>BEEPBOOP</span>")
 		return
 		//if(species.link_mob(target))
