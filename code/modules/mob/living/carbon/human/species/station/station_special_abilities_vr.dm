@@ -873,8 +873,6 @@
 	if(do_after(C, 60, target = target))
 		if(C.pulling != target || G.state == GRAB_NECK)
 			return
-		var/mob/living/soul_owner
-	var/mob/living/target
 		var/mob/living/soul_sharer
 		to_chat(C, "<span class='warning'>BEEPBOOP</span>")
 		return
