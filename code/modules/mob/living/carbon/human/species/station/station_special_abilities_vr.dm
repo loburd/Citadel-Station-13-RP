@@ -854,24 +854,25 @@
 	set name = "Link Minds"
 	set desc = "Link someone's mind to your's, allowing them to communicate telepathically with other linked minds."
 	set category = "Abilities"
+	var/mob/living/carbon/human/C = src
 	if(!ishuman(src))
-	return //If you're not a human you don't have permission to do this.
-	var/obj/item/grab/G = soul_owner.get_active_hand()
+		return //If you're not a human you don't have permission to do this.
+	var/obj/item/grab/G = C.get_active_hand()
 	if(!istype(G))
-		to_chat(soul_owner, "<span class='warning'>You must be grabbing a creature in your active hand to link them.</span>")
+		to_chat(C, "<span class='warning'>You must be grabbing a creature in your active hand to link them.</span>")
 		return
 
 	if(G.state != GRAB_NECK)
-	to_chat(soul_owner, "<span class='warning'>You must have a tighter grip to link to this creature.</span>")
-	return
-
-	var/mob/living/TARGET = soul_owner.pulling
-	to_chat(soul_owner, "<span class='notice'>You begin linking [TARGET]'s mind to yours...</span>")
-	to_chat(TARGET, "<span class='warning'>You feel a foreign presence within your mind...</span>")
-	if(do_after(soul_owner, 60, TARGET = soul_sharer))
-		if(soul_owner.pulling != soul_sharer || src.state == GRAB_NECK)
+		to_chat(C, "<span class='warning'>You must have a tighter grip to link to this creature.</span>")
 		return
-		to_chat(soul_owner, "<span class='warning'>BEEPBOOP</span>")
+
+	var/mob/living/target = C.pulling
+	to_chat(C, "<span class='notice'>You begin linking [target]'s mind to yours...</span>")
+	to_chat(target, "<span class='warning'>You feel a foreign presence within your mind...</span>")
+	if(do_after(C, 60, target = target))
+		if(C.pulling != target || G.state == GRAB_NECK)
+			return
+		to_chat(C, "<span class='warning'>BEEPBOOP</span>")
 		return
 		//if(species.link_mob(target))
 	//		to_chat(soul_owner, "<span class='notice'>You connect [target]'s mind to your's!</span>")
@@ -884,26 +885,23 @@
 	set name = "Send Thought"
 	set desc = "Send a private psychic message to someone in your link."
 	set category = "Abilities"
-
-	var/src = soul_owner
-
-if(soul_owner.stat = DEAD)
+	var/mob/living/carbon/human/C = src
+	if(C.stat == DEAD)
 	return
-var/list/options = list(owned_soul_links)
-	for(var/mob/living/soul_owner)
+	var/list/options = list(owned_soul_links)
 
-var/mob/living/target = input("Select who to send your message to:","Send thought to?",null) as null|mob in options
-	if(!soul_sharer)
+	var/mob/living/target = input("Select who to send your message to:","Send thought to?",null) as null|mob in options
+	if(!target)
 		return
 	var/msg = sanitize(input("Message:", "Telepathy") as text|null)
-	if(soul_owner.z != soul_sharer.z)
-		to_chat(soul_owner, "<span=class='notice'>Your bond is too weak to do that right now. </span>")
+	if(C.z != target.z)
+		to_chat(C, "<span=class='notice'>Your bond is too weak to do that right now. </span>")
 	else
-		to_chat(soul_sharer, "<span class='notice'>You hear an alien voice in your head... </span><font color=#008CA2>[msg]</font>")
-		to_chat(soul_owner, "<span class='notice'>You telepathically said: \"[msg]\" to [target]</span>")
+		to_chat(target, "<span class='notice'>You hear an alien voice in your head... </span><font color=#008CA2>[msg]</font>")
+		to_chat(C, "<span class='notice'>You telepathically said: \"[msg]\" to [target]</span>")
 
 	if(target.stat == DEAD)
-		to_chat(soul_owner, "You feel a sense of dread fill you.")
+		to_chat(C, "You feel a sense of dread fill you.")
 
 
 		///HEAD PAIN. MAJOR
