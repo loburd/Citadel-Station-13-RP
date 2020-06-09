@@ -870,7 +870,7 @@
 	var/mob/living/target = C.pulling || GRAB_NECK
 	to_chat(C, "<span class='notice'>You begin linking [target]'s mind to yours...</span>")
 	to_chat(target, "<span class='warning'>You feel a foreign presence within your mind...</span>")
-	if(do_after(C, 60, target = target))
+	if(do_after(C, 5, target = target))
 		if(C.pulling != target || G.state == GRAB_NECK)
 			return
 		var/mob/living/soul_sharer
