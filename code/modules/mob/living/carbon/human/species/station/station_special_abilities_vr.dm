@@ -849,7 +849,8 @@
 	pass_flags ^= PASSTABLE //I dunno what this fancy ^= is but Aronai gave it to me.
 	to_chat(src, "You [pass_flags&PASSTABLE ? "will" : "will NOT"] move over tables/railings/trays!")
 
-	//Telepathy
+//Changes.start.here
+
 /mob/living/carbon/human/proc/link_minds()
 	set name = "Link Minds"
 	set desc = "Link someone's mind to your's, allowing them to communicate telepathically with other linked minds."
@@ -872,7 +873,9 @@
 	if(do_after(C, 60, target = target))
 		if(C.pulling != target || G.state == GRAB_NECK)
 			return
-    var/mob/living/carbon/human/C = var/mob/living/soul_owner
+		var/mob/living/soul_owner
+	var/mob/living/target
+		var/mob/living/soul_sharer
 		to_chat(C, "<span class='warning'>BEEPBOOP</span>")
 		return
 		//if(species.link_mob(target))
