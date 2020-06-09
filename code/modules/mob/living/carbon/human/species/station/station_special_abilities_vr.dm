@@ -848,3 +848,63 @@
 	set category = "Abilities"
 	pass_flags ^= PASSTABLE //I dunno what this fancy ^= is but Aronai gave it to me.
 	to_chat(src, "You [pass_flags&PASSTABLE ? "will" : "will NOT"] move over tables/railings/trays!")
+
+	//Telepathy
+/mob/living/carbon/human/proc/link_minds()
+	set name = "Link Minds"
+	set desc = "Link someone's mind to your's, allowing them to communicate telepathically with other linked minds."
+	set category = "Abilities"
+	if(!ishuman(src))
+	return //If you're not a human you don't have permission to do this.
+	var/obj/item/grab/G = soul_owner.get_active_hand()
+	if(!istype(G))
+		to_chat(soul_owner, "<span class='warning'>You must be grabbing a creature in your active hand to link them.</span>")
+		return
+
+	if(G.state != GRAB_NECK)
+	to_chat(soul_owner, "<span class='warning'>You must have a tighter grip to link to this creature.</span>")
+	return
+
+	var/mob/living/TARGET = soul_owner.pulling
+	to_chat(soul_owner, "<span class='notice'>You begin linking [TARGET]'s mind to yours...</span>")
+	to_chat(TARGET, "<span class='warning'>You feel a foreign presence within your mind...</span>")
+	if(do_after(soul_owner, 60, TARGET = soul_sharer))
+		if(soul_owner.pulling != soul_sharer || src.state == GRAB_NECK)
+		return
+		to_chat(soul_owner, "<span class='warning'>BEEPBOOP</span>")
+		return
+		//if(species.link_mob(target))
+	//		to_chat(soul_owner, "<span class='notice'>You connect [target]'s mind to your's!</span>")
+	//	else
+	//		to_chat(soul_owner, "<span class='warning'>You can't seem to link [target]'s mind...</span>")
+	//		to_chat(target, "<span class='warning'>The foreign presence leaves your mind.</span>")
+
+
+/mob/living/carbon/human/proc/project_thought()
+	set name = "Send Thought"
+	set desc = "Send a private psychic message to someone in your link."
+	set category = "Abilities"
+
+	var/src = soul_owner
+
+if(soul_owner.stat = DEAD)
+	return
+var/list/options = list(owned_soul_links)
+	for(var/mob/living/soul_owner)
+
+var/mob/living/target = input("Select who to send your message to:","Send thought to?",null) as null|mob in options
+	if(!soul_sharer)
+		return
+	var/msg = sanitize(input("Message:", "Telepathy") as text|null)
+	if(soul_owner.z != soul_sharer.z)
+		to_chat(soul_owner, "<span=class='notice'>Your bond is too weak to do that right now. </span>")
+	else
+		to_chat(soul_sharer, "<span class='notice'>You hear an alien voice in your head... </span><font color=#008CA2>[msg]</font>")
+		to_chat(soul_owner, "<span class='notice'>You telepathically said: \"[msg]\" to [target]</span>")
+
+	if(target.stat == DEAD)
+		to_chat(soul_owner, "You feel a sense of dread fill you.")
+
+
+		///HEAD PAIN. MAJOR
+		return
