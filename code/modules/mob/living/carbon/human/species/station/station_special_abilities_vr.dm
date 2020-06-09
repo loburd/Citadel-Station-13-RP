@@ -874,14 +874,9 @@
 		if(C.pulling != target || G.state == GRAB_NECK)
 			return
 		var/mob/living/soul_sharer
+ var/mob/living/soul_owner		
 		to_chat(C, "<span class='warning'>BEEPBOOP</span>")
 		return
-		//if(species.link_mob(target))
-	//		to_chat(soul_owner, "<span class='notice'>You connect [target]'s mind to your's!</span>")
-	//	else
-	//		to_chat(soul_owner, "<span class='warning'>You can't seem to link [target]'s mind...</span>")
-	//		to_chat(target, "<span class='warning'>The foreign presence leaves your mind.</span>")
-
 
 /mob/living/carbon/human/proc/project_thought()
 	set name = "Send Thought"
