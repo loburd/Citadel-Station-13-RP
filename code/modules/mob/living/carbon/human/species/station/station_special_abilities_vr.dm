@@ -887,7 +887,7 @@
 	set category = "Abilities"
 	var/mob/living/carbon/human/C = src
 	if(C.stat == DEAD)
-	return
+		return
 	var/list/options = list(owned_soul_links)
 
 	var/mob/living/target = input("Select who to send your message to:","Send thought to?",null) as null|mob in options
