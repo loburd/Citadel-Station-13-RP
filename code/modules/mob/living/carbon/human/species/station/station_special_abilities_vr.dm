@@ -875,8 +875,8 @@
 			var/mob/living/soul_sharer
 		var/mob/living/carbon/human/C
 			var/mob/living/soul_owner
-		to_chat(soul_owner, "<span class='warning'>BEEPBOOP</span>")
-		to_chat(soul_sharer, "<span class='warning'>BEEPBOOP</span>")
+	to_chat(soul_owner, "<span class='warning'>BEEPBOOP</span>")
+	to_chat(soul_sharer, "<span class='warning'>BEEPBOOP</span>")
 	return
 
 
