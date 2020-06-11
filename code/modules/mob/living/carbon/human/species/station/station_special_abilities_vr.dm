@@ -871,7 +871,7 @@
 	to_chat(C, "<span class='notice'>You begin linking [target]'s mind to yours...</span>")
 	to_chat(target, "<span class='warning'>You feel a foreign presence within your mind...</span>")
 
-	if(do_after(C, 5, target = "target"))
+	if(do_after(C, 5, target = target))
 		var/mob/living/target
 			var/mob/living/soul_sharer
 		var/mob/living/carbon/human/C
