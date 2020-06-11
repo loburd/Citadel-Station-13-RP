@@ -873,12 +873,10 @@
 
 	//problem starts here
 
-	if(do_after(C, 5, target = target))
-		if(C.pulling != target || G.state == GRAB_NECK)
-			return
-		var/mob/living/soul_sharer
+	if(do_after(C, 5, target = soul_sharer))
+		if((C.pulling != soul_sharer) || (G.state == GRAB_NECK))
 		to_chat(C, "<span class='warning'>BEEPBOOP</span>")
-		return
+	return
 
 /mob/living/carbon/human/proc/project_thought()
 	set name = "Send Thought"
