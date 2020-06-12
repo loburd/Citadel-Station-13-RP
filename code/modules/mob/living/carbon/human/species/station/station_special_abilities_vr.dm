@@ -868,39 +868,22 @@
 		return
 
 	var/mob/living/target = C.pulling || GRAB_NECK
-	to_chat(C, "<span class='notice'>You begin linking ["target"]'s mind to yours...</span>")
+	to_chat(C, "<span class='notice'>You begin linking [target]'s mind to yours...</span>")
 	to_chat(target, "<span class='warning'>You feel a foreign presence within your mind...</span>")
-		if(do_after(5, target = target))
+
+	if(do_after(5, target = target))
 		var/mob/living/target
 			var/mob/living/soul_sharer
 		var/mob/living/carbon/human/C
 			var/mob/living/soul_owner
-		to_chat(soul_owner, "<span class='warning'>BEEPBOOP</span>")
-		to_chat(soul_sharer, "<span class='warning'>BEEPBOOP</span>")
-		return
+	to_chat(target, "<span class='warning'>BEEPBOOP</span>")
+	to_chat(C, "<span class='warning'>BEEPBOOP</span>")
+	return
 
+	if(
 
 
 /mob/living/carbon/human/proc/project_thought()
-	set name = "Send Thought"
-	set desc = "Send a private psychic message to someone in your link."
-	set category = "Abilities"
-	var/mob/living/carbon/human/C = src
-	if(C.stat == DEAD)
-		return
-	var/list/options = list(owned_soul_links)
 
-	var/mob/living/target = input("Select who to send your message to:","Send thought to?",null) as null|mob in options
-	if(!target)
-		return
-	var/msg = sanitize(input("Message:", "Telepathy") as text|null)
-	if(C.z != target.z)
-		to_chat(C, "<span=class='notice'>Your bond is too weak to do that right now. </span>")
-	else
-		to_chat(target, "<span class='notice'>You hear an alien voice in your head... </span><font color=#008CA2>[msg]</font>")
-		to_chat(C, "<span class='notice'>You telepathically said: \"[msg]\" to [target]</span>")
 
-	if(target.stat == DEAD)
-		to_chat(C, "You feel a sense of dread fill you.")
-		///HEAD PAIN. MAJOR
-		return
+/mob/living/carbon/human/proc/sense_distance()
