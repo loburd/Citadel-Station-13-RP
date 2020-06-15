@@ -815,6 +815,7 @@
 	set desc = "Allows you to stop gliding and hover. This will take a fair amount of nutrition to perform."
 	set category = "Abilities"
 
+
 	var/mob/living/carbon/human/C = src
 	if(!C.wing_style) //The species var isn't taken into account here, as it's only purpose is to give this proc to a person.
 		to_chat(src, "You don't have wings!")
@@ -855,35 +856,44 @@
 	set name = "Link Minds"
 	set desc = "Link someone's mind to your's, allowing them to communicate telepathically with other linked minds."
 	set category = "Abilities"
-	var/mob/living/carbon/human/C = src
 	if(!ishuman(src))
 		return //If you're not a human you don't have permission to do this.
-	var/obj/item/grab/G = C.get_active_hand()
+	var/obj/item/grab/G = src.get_active_hand()
 	if(!istype(G))
-		to_chat(C, "<span class='warning'>You must be grabbing a creature in your active hand to link them.</span>")
+		to_chat(src, "<span class='warning'>You must be grabbing a creature in your active hand to link them.</span>")
 		return
 
 	if(G.state != GRAB_NECK)
-		to_chat(C, "<span class='warning'>You must have a tighter grip to link to this creature.</span>")
+		to_chat(src, "<span class='warning'>You must have a tighter grip to link to this creature.</span>")
 		return
 
-	var/mob/living/target = C.pulling || GRAB_NECK
-	to_chat(C, "<span class='notice'>You begin linking [target]'s mind to yours...</span>")
+	var/mob/living/carbon/human/target = src.pulling || GRAB_NECK
+	to_chat(src, "<span class='notice'>You begin linking [target]'s mind to yours...</span>")
 	to_chat(target, "<span class='warning'>You feel a foreign presence within your mind...</span>")
 
 	if(do_after(5, target = target))
-		var/mob/living/target
-			var/mob/living/soul_sharer
-		var/mob/living/carbon/human/C
-			var/mob/living/soul_owner
-	to_chat(target, "<span class='warning'>BEEPBOOP</span>")
-	to_chat(C, "<span class='warning'>BEEPBOOP</span>")
+		src.soul_sharer = target
+		target.soul_owner = src
+	to_chat(soul_sharer, "<span class='warning'>You feel a mental link to [src]</span>")
+	to_chat(soul_owner, "<span class='warning'>You feel your conciousness twining with your target.</span>")
 	return
+//handles nerfs for only active on Z level.
+		if("soul_sharer".z != "soul_owner".z)
+			to_chat(soul_sharer, "<span class='warning'>You feel the strength of your mental link fade.</span>")
+			to_chat(soul_owner, "<span class='warning'>You feel your mental link lower in intensity.</span>")
+			return
+//procs that deal with danger ON SAME Z.
+		if("soul_sharer".stat != CONSCIOUS)
+		to_chat(soul_sharer, "<span class='warning'>You feel a vague sense of calm.</span>")
+		to_chat(soul_owner, "<span class='warning'>You feel a vague sense of dread.</span>")
 
-	if(
+		if("soul_sharer".stat == DEAD)
+		to_chat(soul_sharer, "<span class='notice'>YOU FEEL PAIN RIP THROUGH YOUR CHEST. YOU STAGGER.</span>")
+		to_chat(soul_owner, "<span class='warning'>YOU FEEL PAIN RIP THROUGH YOUR CHEST. YOU STAGGER.</span>")
+		  //weaken both, brain damage both, agony both
 
 
-/mob/living/carbon/human/proc/project_thought()
+// /mob/living/carbon/human/proc/project_thought()
 
 
-/mob/living/carbon/human/proc/sense_distance()
+// /mob/living/carbon/human/proc/sense_distance()

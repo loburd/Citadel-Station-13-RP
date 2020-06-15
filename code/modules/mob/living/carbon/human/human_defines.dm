@@ -112,3 +112,7 @@
 	var/mob/living/carbon/human/vr_link = null
 
 	var/obj/machinery/machine_visual //machine that is currently applying visual effects to this mob. Only used for camera monitors currently.
+
+	var/soul_sharer //used for the mindlink procs.
+
+	var/soul_owner  //used for the mindlink procs.

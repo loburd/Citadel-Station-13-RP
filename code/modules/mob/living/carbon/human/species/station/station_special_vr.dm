@@ -48,7 +48,7 @@
 		/mob/living/carbon/human/proc/biothermic_adapt,
 		/mob/living/carbon/human/proc/atmos_biomorph,
 		/mob/living/carbon/human/proc/vocal_biomorph,
-		/mob/living/carbon/human/proc/project_thought,
+		///mob/living/carbon/human/proc/project_thought,
 		/mob/living/carbon/human/proc/link_minds) //Xenochimera get all the special verbs since they can't select traits.
 
 	virus_immune = 1 // They practically ARE one.
